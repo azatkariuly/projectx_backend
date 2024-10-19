@@ -22,14 +22,13 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-mongoose.connect(process.env.MONGODB_CONNECT)
-  .then(() => (
-    console.log('db connected!')
-  ));
-
 const URL = '/api';
 app.use(URL + '/user', authRoute);
 
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
-})
+
+mongoose.connect(process.env.MONGODB_CONNECT)
+    .then(() => (
+        app.listen(port, () => {
+            console.log(`App listening at http://localhost:${port}`)
+        })
+    ));
