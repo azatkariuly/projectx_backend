@@ -1,7 +1,8 @@
 import express, { Request, Response } from  'express';
 import 'dotenv/config';
 
-import authRoute from './routes/auth.route.js'
+import authRoute from './routes/auth.route.js';
+import mongoose from 'mongoose';
 
 const port = 3000
 
@@ -15,6 +16,10 @@ app.get('/', (req, res) => {
 const URL = '/api';
 app.use(URL + '/user', authRoute);
 
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
-})
+
+mongoose.connect(process.env.MONGODB_CONNECT)
+  .then(() => (
+    app.listen(port, () => {
+        console.log(`App listening at http://localhost:${port}`)
+    })
+  ));
