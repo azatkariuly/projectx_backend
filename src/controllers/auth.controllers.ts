@@ -54,10 +54,6 @@ export const userLogin = async (req: Request, res: Response) => {
             return
         }
 
-        // create token
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_ACCESS_KEY);
-        console.log('my token', token)
-
         // check password
         const isMatch = await bcrypt.compare(password, user.password);
 
@@ -70,7 +66,7 @@ export const userLogin = async (req: Request, res: Response) => {
         const accessToken = jwt.sign({_id: user._id}, process.env.JWT_ACCESS_KEY, { expiresIn: '15m' });
         const refreshToken = jwt.sign({_id: user._id}, process.env.JWT_REFRESH_KEY)
 
-        res.json({accessToken: accessToken, refreshToken: refreshToken});
+        res.send({accessToken: accessToken, refreshToken: refreshToken});
 
     } catch (error) {
         res.status(400).send(error);
