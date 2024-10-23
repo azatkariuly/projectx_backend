@@ -4,7 +4,7 @@ import cors from 'cors';
 import authRoute from './routes/auth.route.js';
 import mongoose from 'mongoose';
 
-const port = 3000
+const port = 8000
 
 const app = express()
 
